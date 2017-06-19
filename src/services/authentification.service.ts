@@ -15,14 +15,12 @@ export class AuthentificationService {
     }
 
     login(email) {
-        this.parentService.getParents().then(parents => {
-            const authenticatedParent =
-            parents.find(p => p.mail === email);
-            if (authenticatedParent) {
-                localStorage.setItem("parent", authenticatedParent.id.toString());
-                return true;
-            }
-        });
+        const parents = this.parentService.getParents();
+        const authenticatedParent = parents.find(p => p.mail === email);
+        if (authenticatedParent) {
+            localStorage.setItem("parent", authenticatedParent.id.toString());
+            return true;
+        }
 
         return false;
 

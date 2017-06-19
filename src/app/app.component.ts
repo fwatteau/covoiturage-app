@@ -1,20 +1,25 @@
-import {AfterContentInit, Component} from "@angular/core";
+import {AfterContentInit, AfterViewChecked, Component} from "@angular/core";
 import {MapService} from "../services/map.service";
 import {GeocodingService} from "../services/geocoding.service";
 import {ParentService} from "../services/parent.service";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {LoginComponent} from "./login/login.component";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
 })
-export class AppComponent  implements AfterContentInit {
-  loggedUser: any = false;
+export class AppComponent  implements AfterViewChecked {
 
-  constructor(private mapService: MapService, private geocoder: GeocodingService, private parentService: ParentService) {
+  public loggedUser: any = false;
+
+  constructor(private mapService: MapService, private geocoder: GeocodingService
+      , private parentService: ParentService, private modalService: NgbModal) {
+    this.modalService.open(LoginComponent, {backdrop: "static"});
   }
 
-  ngAfterContentInit() {
+  ngAfterViewChecked() {
     const map = L.map("map", {
       zoomControl: false,
       center: L.latLng(40.731253, -73.996139),
@@ -60,24 +65,24 @@ export class AppComponent  implements AfterContentInit {
       iconColor: "#FFF"
     });*/
     // add parents to map
-    this.parentService.getParents().then(parents => {
-      let first = true;
-      parents.map(parent => {
-        this.geocoder.geocode(parent.address)
-            .subscribe(location => {
-              // map.fitBounds(location.viewBounds, {});
+    const parents = this.parentService.getParents();
 
-              if (parent.id === 0) {
-                const marker = L.marker([location.latitude, location.longitude], {icon: collegeIcon}).addTo(map);
-                marker.bindPopup(`<b>${parent.name}</b>`);
-                marker.openPopup();
-                first = false;
-              } else {
-                const marker = L.marker([location.latitude, location.longitude], {icon: parentIcon}).addTo(map);
-                marker.bindPopup(`<b>${parent.name}(<i>${parent.phone}</i>)</b><br>${parent.needs}<hr>${parent.capacities}`);
-              }
-            }, error => console.error(error));
-      });
-    });
+    let first = true;
+    for (const parent of parents) {
+      this.geocoder.geocode(parent.address)
+          .subscribe(location => {
+            // map.fitBounds(location.viewBounds, {});
+
+            if (parent.id === 0) {
+              const marker = L.marker([location.latitude, location.longitude], {icon: collegeIcon}).addTo(map);
+              marker.bindPopup(`<b>${parent.name}</b>`);
+              marker.openPopup();
+              first = false;
+            } else {
+              const marker = L.marker([location.latitude, location.longitude], {icon: parentIcon}).addTo(map);
+              marker.bindPopup(`<b>${parent.name}(<i>${parent.phone}</i>)</b><br>${parent.needs}<hr>${parent.capacities}`);
+            }
+          }, error => console.error(error));
+    }
   }
 }

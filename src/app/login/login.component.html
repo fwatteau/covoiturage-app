@@ -1,19 +1,13 @@
-<div class="container" >
-  <div class="title">
-    Welcome
-  </div>
-  <div class="panel-body">
-    <div class="row">
-      <div class="input-field col s12">
-        <input  [(ngModel)]="email" id="email"
-               type="email" class="validate">
-        <label for="email">Email</label>
-      </div>
+<div class="modal-header">
+  <h4 class="modal-title">Connectez vous!</h4>
+</div>
+<div class="modal-body">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">@</span>
+      <input type="email" [(ngModel)]="email" class="form-control" placeholder="Email utilisé lors de l'inscription" aria-describedby="basic-addon1">
     </div>
-
-    <span>{{errorMsg}}</span>
-    <button (click)="login()"
-            class="btn waves-effect waves-light"
-            type="submit" name="action">Login</button>
-  </div>
+    <p class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="login()">Login</button>
 </div>

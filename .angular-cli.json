@@ -19,14 +19,11 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css",
         "../node_modules/leaflet/dist/leaflet.css",
-        "../node_modules/leaflet-fontawesome-markers/L.Icon.FontAwesome.css",
-        "../node_modules/font-awesome/css/font-awesome.css"
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "./assets/css/bootstrap.min.css"
       ],
-      "scripts": [
-        "../node_modules/leaflet-fontawesome-markers/L.Icon.FontAwesome.js"
-      ],
+      "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
