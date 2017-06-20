@@ -1,5 +1,5 @@
 [
-  {"id" : 0, "name": "Collège communautaire", "children": "", "address": "36 Rue Louis Constant, 59650 Villeneuve-d'Ascq", "mail": "f.watteau@gmail.com", "phone": "03.20.72.43.50", "needs": "", "capacities": ""}
+  {"id" : 0, "name": "Collège communautaire", "children": "", "address": "36 Rue Louis Constant, 59650 Villeneuve-d'Ascq", "mail": "collegecommunautaire@nordnet.fr", "phone": "03.20.72.43.50"}
 , {"id" : 1, "name": "John Doe", "children": "Jane Doe", "classroom": 6, "address": "3 allée tristan 59650 Villeneuve d Ascq", "mail": "f.watteau@gmail.com", "phone": "06.11.26.28.03", "needs": "Jeudi à 16h20 ou 17H10 <BR/>et Vendredi à 16H20", "capacities": "2 places le matin à 8h25 TLJ + lundi et mardi soir à 17H10"}
 , {"id" : 2, "name": "John Doe", "children": "Jane Doe", "classroom": 6, "address": "3 allée tradition 59650 Villeneuve d Ascq", "mail": "f.watteau@gmail.com", "phone": "06.11.26.28.03", "needs": "Jeudi à 16h20 ou 17H10 <BR/>et Vendredi à 16H20", "capacities": "2 places le matin à 8h25 TLJ + lundi et mardi soir à 17H10"}
 , {"id" : 3, "name": "John Doe", "children": "Jane Doe", "classroom": 6, "address": "3 allée troubadour 59650 Villeneuve d Ascq", "mail": "f.watteau@gmail.com", "phone": "06.11.26.28.03", "needs": "Jeudi à 16h20 ou 17H10 <BR/>et Vendredi à 16H20", "capacities": "2 places le matin à 8h25 TLJ + lundi et mardi soir à 17H10"}

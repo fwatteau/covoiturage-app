@@ -11,23 +11,31 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
-import { CommonModule } from "@angular/common";
+import { CommonModule, HashLocationStrategy, Location, LocationStrategy } from "@angular/common";
 import { AppComponent } from "./app.component";
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { RouterModule, Routes } from "@angular/router";
 
-import {MapService} from "../services/map.service";
-import {GeocodingService} from "../services/geocoding.service";
-import {ParentService} from "../services/parent.service";
+import { MapService } from "../services/map.service";
+import { GeocodingService } from "../services/geocoding.service";
+import { ParentService } from "../services/parent.service";
 import { LoginComponent } from "./login/login.component";
+import { MapComponent } from "./map/map.component";
+
+const appRoutes: Routes = [
+  { path: "login", component: LoginComponent },
+  { path: "map",  component: MapComponent },
+  { path: "",  redirectTo: "login", pathMatch: "full"}
+];
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent
+    AppComponent, LoginComponent, MapComponent
   ],
   imports: [
-    BrowserModule, HttpModule, FormsModule, CommonModule, NgbModule.forRoot()
+    BrowserModule, HttpModule, FormsModule, CommonModule, NgbModule.forRoot(), RouterModule.forRoot(appRoutes)
   ],
-  providers: [MapService,
+  providers: [MapService, Location, {provide: LocationStrategy, useClass: HashLocationStrategy},
     GeocodingService, ParentService],
   bootstrap: [AppComponent],
   entryComponents: [LoginComponent]

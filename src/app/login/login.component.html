@@ -1,13 +1,31 @@
-<div class="modal-header">
-  <h4 class="modal-title">Connectez vous!</h4>
-</div>
-<div class="modal-body">
-    <div class="input-group">
-      <span class="input-group-addon" id="basic-addon1">@</span>
-      <input type="email" [(ngModel)]="email" class="form-control" placeholder="Email utilisé lors de l'inscription" aria-describedby="basic-addon1">
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-3">Le covoiturage du collège communautaire !</h1>
+        <p>Bienvenue sur ce site ou vous pourrez retrouver les propositions de covoiturage des enfants.
+            Pour ne pas exposer vos données personnelles au regard de tous, nous vous demandons de saisir l'email utilisée lors du dépot de la fiche de renseignement.</p>
     </div>
-    <p class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</p>
 </div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="login()">Login</button>
-</div>
+
+<div class="container">
+    <form>
+    </form>
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">@</span>
+            <input type="email" [(ngModel)]="email" class="form-control" placeholder="Email utilisé lors de l'inscription" aria-describedby="basic-addon1">
+            <span class="input-group-btn">
+              <button [disabled]="!email" required="true" class="btn btn-primary" type="button" (click)="login()">Je regarde les propositions &raquo;</button>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <p class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</p>
+    </div>
+    <hr>
+</div> <!-- /container -->
+
+<footer class="text-center">
+    <p>&copy; 2017</p>
+</footer>
