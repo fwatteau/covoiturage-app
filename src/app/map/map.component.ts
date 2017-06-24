@@ -89,9 +89,9 @@ export class MapComponent implements OnInit {
                   marker.openPopup();
               } else {
                   const marker = L.marker([location.latitude, location.longitude], {icon: parentIcon}).addTo(map);
-                  marker.bindPopup(`<b>${parent.name} (<i>${parent.phone}</i>)</b><br>${parent.needs}<hr>${parent.capacities}`);
+                  marker.bindPopup(`<h5>${parent.name}</h5><div class="row"><dt class="col-sm-1"><li class="fa fa-phone"></li></dt><dl class="col-sm-4">${parent.phone}</dl><dt class="col-sm-1"><li class="fa fa-envelope-o"></li></dt><dl class="col-sm-5"><a href="mailto:${parent.mail}">${parent.mail}</a></dl></div><div class="list-group"><a href="#" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-info"><p class="mb-1"><code>a besoin de </code> ${parent.needs}</p></a><a href="#" class="list-group-item list-group-item-action list-group-item-warning flex-column align-items-start"><p class="mb-1"><kbd>peut aider à</kbd> ${parent.capacities}</p></a></div>`);
               }
-            }, error => console.error(error));
+            }, error => console.error(`Erreur sur le parent ${parent.id} [${parent.address}]: ${error}`));
       }
     });
   }

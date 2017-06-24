@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
   providers: [AuthentificationService, NgbActiveModal]
 })
 export class LoginComponent implements OnInit {
-  public email = "f.watteau@gmail.com";
+  public email = "";
   public errorMsg = "";
   @Input()
   logged: Parent = null;
