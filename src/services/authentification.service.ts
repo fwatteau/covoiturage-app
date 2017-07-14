@@ -21,7 +21,7 @@ export class AuthentificationService {
     }
 
     login(email): Parent {
-        const authenticatedParent = this.parents.find(p => p.mail === email);
+        const authenticatedParent = this.parents.find(p => p.mail.toUpperCase() === email.toUpperCase());
         if (authenticatedParent) {
             localStorage.setItem("parent", JSON.stringify(authenticatedParent));
         }

@@ -75,21 +75,38 @@ export class MapComponent implements OnInit {
       for (const parent of parents) {
         this.geocoder.geocode(parent.address)
             .subscribe(location => {
+                const phone = parent.phone ? `<div class="p-1"><li class="fa fa-phone"></li> ${parent.phone}</div>` : '';
+                const mail = parent.mail ?
+                    `<div class="p-1"><li class="fa fa-envelope-o"></li> <a href="mailto:${parent.mail}">${parent.mail}</a></div>`
+                    : '';
+                const cap = `<div class="p-2 bg-info text-white"><kbd>peut aider à</kbd>&nbsp;${parent.capacities}</div>`;
+                const need = `<div class="p-2 bg-warning text-white"><code>a besoin de</code>&nbsp;${parent.needs}</div>`;
+
               // map.fitBounds(location.viewBounds, {});
 
               if (parent.id === 0) {
                 const marker = L.marker([location.latitude, location.longitude], {icon: collegeIcon}).addTo(map);
-                marker.bindPopup(`<b>${parent.name} (<i>${parent.phone}</i>)</b><br><a href="mailto:${parent.mail}">${parent.mail}</a>`);
+                const title = `<h5><i class="fa fa-graduation-cap" aria-hidden="true"></i> ${parent.name}</h5>`;
+                const str = `${title}<div class="d-flex flex-wrap justify-content-between">${phone} ${mail}</div>`;
+
+                marker.bindPopup(str);
                 if (!user) {
                   marker.openPopup();
                 }
               } else if (parent.id === user.id) {
                   const marker = L.marker([location.latitude, location.longitude], {icon: houseIcon}).addTo(map);
-                  marker.bindPopup(`<b>Votre maison </b><br>${parent.needs}<hr>${parent.capacities}`);
+                  const title = `<h5><i class="fa fa-home" aria-hidden="true"></i> Votre maison</h5>`;
+                  const str = `${title}<div class="d-flex flex-column">${need}${cap}</div>`;
+
+                  marker.bindPopup(str);
                   marker.openPopup();
               } else {
                   const marker = L.marker([location.latitude, location.longitude], {icon: parentIcon}).addTo(map);
-                  marker.bindPopup(`<h5>${parent.name}</h5><div class="row"><dt class="col-sm-1"><li class="fa fa-phone"></li></dt><dl class="col-sm-4">${parent.phone}</dl><dt class="col-sm-1"><li class="fa fa-envelope-o"></li></dt><dl class="col-sm-5"><a href="mailto:${parent.mail}">${parent.mail}</a></dl></div><div class="list-group"><a href="#" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-info"><p class="mb-1"><code>a besoin de </code> ${parent.needs}</p></a><a href="#" class="list-group-item list-group-item-action list-group-item-warning flex-column align-items-start"><p class="mb-1"><kbd>peut aider à</kbd> ${parent.capacities}</p></a></div>`);
+                  const title = `<h5><i class="fa fa-child" aria-hidden="true"></i> ${parent.name}</h5>`;
+                  const str = `${title}<div class="d-flex flex-wrap justify-content-between">${phone} ${mail}</div>`
+                      + `<div class="d-flex flex-column">${need}${cap}</div>`;
+
+                  marker.bindPopup(str);
               }
             }, error => console.error(`Erreur sur le parent ${parent.id} [${parent.address}]: ${error}`));
       }

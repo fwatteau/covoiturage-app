@@ -4,7 +4,6 @@ import {Injectable} from "@angular/core";
 
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/mergeMap";
-import {environment} from "../environments/environment";
 
 @Injectable()
 export class GeocodingService {
@@ -16,26 +15,30 @@ export class GeocodingService {
 
     geocode(address: string) {
         return this.http
-            .get(`https://maps.googleapis.com/maps/api/geocode/json?key=${environment.apiKey}&address=${encodeURIComponent(address)}`)
+            // .get(`https://maps.googleapis.com/maps/api/geocode/json?key=${environment.apiKey}&address=${encodeURIComponent(address)}`)
+            .get(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(address)}&autocomplete=0&limit=1`)
             .map(res => res.json())
             .map(result => {
-                if (result.status !== "OK") { throw new Error("unable to geocode address"); }
+                if (!result.features || ! (result.features  instanceof Array) || result.features.length === 0) {
+                    throw new Error("unable to geocode address");
+                }
 
                 const location = new Location();
-                location.address = result.results[0].formatted_address;
-                location.latitude = result.results[0].geometry.location.lat;
-                location.longitude = result.results[0].geometry.location.lng;
+                location.address = result.features[0].formatted_address;
+                location.latitude = result.features[0].geometry.coordinates[1];
+                location.longitude = result.features[0].geometry.coordinates[0];
 
-                const viewPort = result.results[0].geometry.viewport;
+                /*const viewPort = result[0].boundingbox;
                 location.viewBounds = L.latLngBounds(
+                    {
+                        lat: viewPort[0],
+                        lng: viewPort[2]
+                    },
                   {
-                    lat: viewPort.southwest.lat,
-                    lng: viewPort.southwest.lng},
-                  {
-                    lat: viewPort.northeast.lat,
-                    lng: viewPort.northeast.lng
+                    lat: viewPort[1],
+                    lng: viewPort[3]
                   });
-
+*/
                 return location;
             });
     }
